@@ -1,0 +1,27 @@
+{
+  "name": "redux-async-data",
+  "version": "0.1.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meikidd/redux-async-data.git"
+  },
+  "keywords": [
+    "async",
+    "data",
+    "redux"
+  ],
+  "author": "meikidd <meikidd@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/meikidd/redux-async-data/issues"
+  },
+  "homepage": "https://github.com/meikidd/redux-async-data#readme",
+  "peerDependencies": {
+    "redux": "^4.0.1"
+  }
+}
