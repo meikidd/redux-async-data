@@ -2,9 +2,10 @@
   "name": "redux-async-data",
   "version": "0.1.1",
   "description": "",
-  "main": "lib/index.ts",
+  "main": "dist/index.js",
+  "types": "./index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc --build tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -12,7 +13,6 @@
   },
   "keywords": [
     "async",
-    "data",
     "redux"
   ],
   "author": "meikidd <meikidd@gmail.com>",
@@ -23,5 +23,8 @@
   "homepage": "https://github.com/meikidd/redux-async-data#readme",
   "peerDependencies": {
     "redux": "^4.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^3.2.2"
   }
 }
