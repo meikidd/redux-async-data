@@ -8,6 +8,7 @@ declare module 'redux-async-data' {
     FAILED = 'FAILED',
     NO_MORE = 'NO_MORE'
   }
+
   export type AsyncData<T> = {
     status: Status;
     data: T;
@@ -15,36 +16,29 @@ declare module 'redux-async-data' {
     hasMore?: boolean; // hasMore is used for pagination 
   };
 
-  interface ReduxAsyncData {
+  export function createAsyncData<T>(
+    data: T,
+    enablePaging?: boolean
+  ): AsyncData<T>;
 
-    createAsyncData<T>(
-      data: T,
-      enablePaging?: boolean
-    ): AsyncData<T>;
-  
-    
-    createAsyncAction(
-      type: string,
-      status: Status,
-      payload?: any
-    ): AnyAction;
-  
-    createAsyncType(type: string, status: Status): string;
-  
-    updateAsyncData<T>(
-      asyncData: AsyncData<T>,
-      action: AnyAction,
-      reducer?: Reducer
-    ): AsyncData<T>
-  
-    parseAsyncType(
-      type: string
-    ): { type: string; status: Status | null }
-  
-    isPending(asyncData: AsyncData<any>): boolean;
-  }
+  export function   createAsyncAction(
+    type: string,
+    status: Status,
+    payload?: any
+  ): AnyAction;
 
-  let reduxAsyncData: ReduxAsyncData;
+  export function   createAsyncType(type: string, status: Status): string;
 
-  export default reduxAsyncData;
+  export function updateAsyncData<T>(
+    asyncData: AsyncData<T>,
+    action: AnyAction,
+    reducer?: Reducer
+  ): AsyncData<T>
+
+  export function parseAsyncType(
+    type: string
+  ): { type: string; status: Status | null }
+
+  export function isPending(asyncData: AsyncData<any>): boolean;
+
 }
