@@ -22,6 +22,7 @@ declare module 'redux-async-data' {
   export function pending(type: string,payload?: any): AnyAction;
   export function succeeded(type: string,payload?: any): AnyAction;
   export function failed(type: string,payload?: any): AnyAction;
+  export function noMore(type: string,payload?: any): AnyAction;
 
   export function createAsyncType(type: string, status: Status): string;
 
