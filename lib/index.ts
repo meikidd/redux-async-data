@@ -59,6 +59,9 @@ export function succeeded(type: string, payload?: any): AnyAction {
 export function failed(type: string, payload?: any): AnyAction {
   return { type: createAsyncType(type, Status.FAILED), payload, isAsync: true };
 }
+export function noMore(type: string, payload?: any): AnyAction {
+  return { type: createAsyncType(type, Status.NO_MORE), payload, isAsync: true };
+}
 
 export function updateAsyncData(
   asyncData: AsyncData<any>,
