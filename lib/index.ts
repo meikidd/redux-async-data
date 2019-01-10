@@ -38,6 +38,10 @@ export function createAsyncData<T>(
   };
 }
 
+export function createAsyncType(type: string, status: Status) {
+  return type + '.' + status;
+}
+
 export function createAsyncAction(
   type: string,
   status: Status,
@@ -46,8 +50,14 @@ export function createAsyncAction(
   return { type: createAsyncType(type, status), payload, isAsync: true };
 }
 
-export function createAsyncType(type: string, status: Status) {
-  return type + '.' + status;
+export function pending(type: string, payload?: any): AnyAction {
+  return { type: createAsyncType(type, Status.PENDING), payload, isAsync: true };
+}
+export function succeeded(type: string, payload?: any): AnyAction {
+  return { type: createAsyncType(type, Status.SUCCEEDED), payload, isAsync: true };
+}
+export function failed(type: string, payload?: any): AnyAction {
+  return { type: createAsyncType(type, Status.FAILED), payload, isAsync: true };
 }
 
 export function updateAsyncData(
@@ -100,4 +110,10 @@ export function parseAsyncType(
 
 export function isPending(asyncData: AsyncData<any>) {
   return asyncData.status === Status.PENDING;
+}
+export function isFailed(asyncData: AsyncData<any>) {
+  return asyncData.status === Status.FAILED;
+}
+export function isSucceeded(asyncData: AsyncData<any>) {
+  return asyncData.status === Status.SUCCEEDED;
 }
