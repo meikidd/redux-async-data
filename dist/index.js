@@ -50,6 +50,9 @@ export function succeeded(type, payload) {
 export function failed(type, payload) {
     return { type: createAsyncType(type, Status.FAILED), payload: payload, isAsync: true };
 }
+export function noMore(type, payload) {
+    return { type: createAsyncType(type, Status.NO_MORE), payload: payload, isAsync: true };
+}
 export function updateAsyncData(asyncData, action, reducer) {
     var status = parseAsyncType(action.type).status;
     if (status === Status.FAILED) {
