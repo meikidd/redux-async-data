@@ -35,11 +35,20 @@ export function createAsyncData(data, enablePaging) {
         hasMore: enablePaging
     };
 }
+export function createAsyncType(type, status) {
+    return type + '.' + status;
+}
 export function createAsyncAction(type, status, payload) {
     return { type: createAsyncType(type, status), payload: payload, isAsync: true };
 }
-export function createAsyncType(type, status) {
-    return type + '.' + status;
+export function pending(type, payload) {
+    return { type: createAsyncType(type, Status.PENDING), payload: payload, isAsync: true };
+}
+export function succeeded(type, payload) {
+    return { type: createAsyncType(type, Status.SUCCEEDED), payload: payload, isAsync: true };
+}
+export function failed(type, payload) {
+    return { type: createAsyncType(type, Status.FAILED), payload: payload, isAsync: true };
 }
 export function updateAsyncData(asyncData, action, reducer) {
     var status = parseAsyncType(action.type).status;
@@ -89,4 +98,9 @@ export function parseAsyncType(type) {
 export function isPending(asyncData) {
     return asyncData.status === Status.PENDING;
 }
-//# sourceMappingURL=index.js.map
+export function isFailed(asyncData) {
+    return asyncData.status === Status.FAILED;
+}
+export function isSucceeded(asyncData) {
+    return asyncData.status === Status.SUCCEEDED;
+}
