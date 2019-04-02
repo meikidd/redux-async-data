@@ -36,22 +36,34 @@ export function createAsyncData(data, enablePaging) {
     };
 }
 export function createAsyncType(type, status) {
-    return type + '.' + status;
+    return type + "." + status;
 }
 export function createAsyncAction(type, status, payload) {
     return { type: createAsyncType(type, status), payload: payload, isAsync: true };
 }
 export function pending(type, payload) {
-    return { type: createAsyncType(type, Status.PENDING), payload: payload, isAsync: true };
+    return {
+        type: createAsyncType(type, Status.PENDING),
+        payload: payload,
+        isAsync: true
+    };
 }
 export function succeeded(type, payload) {
-    return { type: createAsyncType(type, Status.SUCCEEDED), payload: payload, isAsync: true };
+    return {
+        type: createAsyncType(type, Status.SUCCEEDED),
+        payload: payload,
+        isAsync: true
+    };
 }
 export function failed(type, payload) {
     return { type: createAsyncType(type, Status.FAILED), payload: payload, isAsync: true };
 }
 export function noMore(type, payload) {
-    return { type: createAsyncType(type, Status.NO_MORE), payload: payload, isAsync: true };
+    return {
+        type: createAsyncType(type, Status.NO_MORE),
+        payload: payload,
+        isAsync: true
+    };
 }
 export function updateAsyncData(asyncData, action, reducer) {
     var status = parseAsyncType(action.type).status;
@@ -107,3 +119,7 @@ export function isFailed(asyncData) {
 export function isSucceeded(asyncData) {
     return asyncData.status === Status.SUCCEEDED;
 }
+export function isFinished(asyncData) {
+    return isFailed(asyncData) || isSucceeded(asyncData);
+}
+export * from "./AsyncView";

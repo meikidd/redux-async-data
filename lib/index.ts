@@ -10,21 +10,21 @@ SUCCEEDED   FAILED
 
 */
 
-import { AnyAction, Reducer } from 'redux';
+import { AnyAction, Reducer } from "redux";
 
 export enum Status {
-  INIT = 'INIT',
-  PENDING = 'PENDING',
-  SUCCEEDED = 'SUCCEEDED',
-  FAILED = 'FAILED',
-  NO_MORE = 'NO_MORE'
+  INIT = "INIT",
+  PENDING = "PENDING",
+  SUCCEEDED = "SUCCEEDED",
+  FAILED = "FAILED",
+  NO_MORE = "NO_MORE"
 }
 
 export type AsyncData<T> = {
   status: Status;
   data: T;
   errorMsg?: string;
-  hasMore?: boolean; // hasMore is used for pagination 
+  hasMore?: boolean; // hasMore is used for pagination
 };
 
 export function createAsyncData<T>(
@@ -39,7 +39,7 @@ export function createAsyncData<T>(
 }
 
 export function createAsyncType(type: string, status: Status) {
-  return type + '.' + status;
+  return type + "." + status;
 }
 
 export function createAsyncAction(
@@ -51,16 +51,28 @@ export function createAsyncAction(
 }
 
 export function pending(type: string, payload?: any): AnyAction {
-  return { type: createAsyncType(type, Status.PENDING), payload, isAsync: true };
+  return {
+    type: createAsyncType(type, Status.PENDING),
+    payload,
+    isAsync: true
+  };
 }
 export function succeeded(type: string, payload?: any): AnyAction {
-  return { type: createAsyncType(type, Status.SUCCEEDED), payload, isAsync: true };
+  return {
+    type: createAsyncType(type, Status.SUCCEEDED),
+    payload,
+    isAsync: true
+  };
 }
 export function failed(type: string, payload?: any): AnyAction {
   return { type: createAsyncType(type, Status.FAILED), payload, isAsync: true };
 }
 export function noMore(type: string, payload?: any): AnyAction {
-  return { type: createAsyncType(type, Status.NO_MORE), payload, isAsync: true };
+  return {
+    type: createAsyncType(type, Status.NO_MORE),
+    payload,
+    isAsync: true
+  };
 }
 
 export function updateAsyncData(
@@ -120,3 +132,8 @@ export function isFailed(asyncData: AsyncData<any>) {
 export function isSucceeded(asyncData: AsyncData<any>) {
   return asyncData.status === Status.SUCCEEDED;
 }
+export function isFinished(asyncData: AsyncData<any>) {
+  return isFailed(asyncData) || isSucceeded(asyncData);
+}
+
+export * from "./AsyncView";

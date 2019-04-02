@@ -3,9 +3,10 @@
   "version": "0.1.6",
   "description": "",
   "main": "dist/index.js",
-  "types": "./index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc --build tsconfig.json"
+    "build": "tsc --build tsconfig.json",
+    "declaration": "tsc -d"
   },
   "repository": {
     "type": "git",
@@ -22,9 +23,11 @@
   },
   "homepage": "https://github.com/meikidd/redux-async-data#readme",
   "peerDependencies": {
+    "react": "^16.8.6",
     "redux": "^4.0.1"
   },
   "devDependencies": {
+    "@types/react": "^16.8.10",
     "typescript": "^3.2.2"
   }
 }
