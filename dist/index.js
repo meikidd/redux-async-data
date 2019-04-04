@@ -36,7 +36,7 @@ export function createAsyncData(data, enablePaging) {
     };
 }
 export function createAsyncType(type, status) {
-    return type + "." + status;
+    return type + '.' + status;
 }
 export function createAsyncAction(type, status, payload) {
     return { type: createAsyncType(type, status), payload: payload, isAsync: true };
@@ -110,6 +110,9 @@ export function parseAsyncType(type) {
         return { type: type, status: null };
     }
 }
+export function isInit(asyncData) {
+    return asyncData.status === Status.INIT;
+}
 export function isPending(asyncData) {
     return asyncData.status === Status.PENDING;
 }
@@ -122,4 +125,4 @@ export function isSucceeded(asyncData) {
 export function isFinished(asyncData) {
     return isFailed(asyncData) || isSucceeded(asyncData);
 }
-export * from "./AsyncView";
+export * from './AsyncView';

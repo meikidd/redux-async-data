@@ -1,4 +1,4 @@
-import { AnyAction, Reducer } from "redux";
+import { AnyAction, Reducer } from 'redux';
 export declare enum Status {
     INIT = "INIT",
     PENDING = "PENDING",
@@ -29,8 +29,9 @@ export declare function parseAsyncType(type: string): {
     type: string;
     status: Status | null;
 };
+export declare function isInit(asyncData: AsyncData<any>): boolean;
 export declare function isPending(asyncData: AsyncData<any>): boolean;
 export declare function isFailed(asyncData: AsyncData<any>): boolean;
 export declare function isSucceeded(asyncData: AsyncData<any>): boolean;
 export declare function isFinished(asyncData: AsyncData<any>): boolean;
-export * from "./AsyncView";
+export * from './AsyncView';

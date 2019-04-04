@@ -10,14 +10,14 @@ SUCCEEDED   FAILED
 
 */
 
-import { AnyAction, Reducer } from "redux";
+import { AnyAction, Reducer } from 'redux';
 
 export enum Status {
-  INIT = "INIT",
-  PENDING = "PENDING",
-  SUCCEEDED = "SUCCEEDED",
-  FAILED = "FAILED",
-  NO_MORE = "NO_MORE"
+  INIT = 'INIT',
+  PENDING = 'PENDING',
+  SUCCEEDED = 'SUCCEEDED',
+  FAILED = 'FAILED',
+  NO_MORE = 'NO_MORE'
 }
 
 export type AsyncData<T> = {
@@ -39,7 +39,7 @@ export function createAsyncData<T>(
 }
 
 export function createAsyncType(type: string, status: Status) {
-  return type + "." + status;
+  return type + '.' + status;
 }
 
 export function createAsyncAction(
@@ -123,6 +123,9 @@ export function parseAsyncType(
   }
 }
 
+export function isInit(asyncData: AsyncData<any>) {
+  return asyncData.status === Status.INIT;
+}
 export function isPending(asyncData: AsyncData<any>) {
   return asyncData.status === Status.PENDING;
 }
@@ -136,4 +139,4 @@ export function isFinished(asyncData: AsyncData<any>) {
   return isFailed(asyncData) || isSucceeded(asyncData);
 }
 
-export * from "./AsyncView";
+export * from './AsyncView';
