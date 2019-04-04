@@ -13,7 +13,7 @@ export interface AsyncViewProps {
 export function AsyncView(props: AsyncViewProps) {
   const { data, init, pending, failed, empty, succeeded } = props;
   const result = data.data;
-  const isEmpty = !result || !result.length || !Object.keys(result).length;
+  const isEmpty = !result || result.length === 0 || !Object.keys(result).length;
 
   let content = succeeded;
   if (isInit(data) && !!init) {
