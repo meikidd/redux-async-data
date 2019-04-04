@@ -7,5 +7,6 @@ export interface AsyncViewProps {
     failed?: React.ReactNode;
     empty?: React.ReactNode;
     succeeded: React.ReactNode;
+    checkEmpty?: Function;
 }
 export declare function AsyncView(props: AsyncViewProps): JSX.Element;

@@ -8,12 +8,24 @@ export interface AsyncViewProps {
   failed?: React.ReactNode;
   empty?: React.ReactNode;
   succeeded: React.ReactNode;
+  checkEmpty?: Function;
 }
 
+const isEmptyArray = function(data: []) {
+  return data.length === 0;
+};
+const isEmptyObject = function(data: Object) {
+  return Object.keys(data).length === 0;
+};
+
 export function AsyncView(props: AsyncViewProps) {
-  const { data, init, pending, failed, empty, succeeded } = props;
+  const { data, init, pending, failed, empty, succeeded, checkEmpty } = props;
   const result = data.data;
-  const isEmpty = !result || result.length === 0 || !Object.keys(result).length;
+  const isEmpty =
+    !result ||
+    isEmptyArray(result) ||
+    isEmptyObject(result) ||
+    (!!checkEmpty && checkEmpty(result));
 
   let content = succeeded;
   if (isInit(data) && !!init) {

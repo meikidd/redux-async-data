@@ -1,9 +1,18 @@
 import * as React from 'react';
 import { isInit, isPending, isSucceeded, isFailed } from './index';
+var isEmptyArray = function (data) {
+    return data.length === 0;
+};
+var isEmptyObject = function (data) {
+    return Object.keys(data).length === 0;
+};
 export function AsyncView(props) {
-    var data = props.data, init = props.init, pending = props.pending, failed = props.failed, empty = props.empty, succeeded = props.succeeded;
+    var data = props.data, init = props.init, pending = props.pending, failed = props.failed, empty = props.empty, succeeded = props.succeeded, checkEmpty = props.checkEmpty;
     var result = data.data;
-    var isEmpty = !result || result.length === 0 || !Object.keys(result).length;
+    var isEmpty = !result ||
+        isEmptyArray(result) ||
+        isEmptyObject(result) ||
+        (!!checkEmpty && checkEmpty(result));
     var content = succeeded;
     if (isInit(data) && !!init) {
         content = init;
