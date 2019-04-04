@@ -3,7 +3,7 @@ import { isInit, isPending, isSucceeded, isFailed } from './index';
 export function AsyncView(props) {
     var data = props.data, init = props.init, pending = props.pending, failed = props.failed, empty = props.empty, succeeded = props.succeeded;
     var result = data.data;
-    var isEmpty = !result || !result.length || !Object.keys(result).length;
+    var isEmpty = !result || result.length === 0 || !Object.keys(result).length;
     var content = succeeded;
     if (isInit(data) && !!init) {
         content = init;
