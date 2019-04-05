@@ -1,10 +1,11 @@
-import { combineReducers } from 'redux';
 import {
-  SELECT_REDDIT,
-  REQUEST_POSTS,
-  RECEIVE_POSTS,
-  FAILED_POSTS
-} from '../actions';
+  updateAsyncData,
+  createAsyncData,
+  parseAsyncType
+} from 'redux-async-data';
+
+import { combineReducers } from 'redux';
+import { SELECT_REDDIT, REQUEST_POSTS } from '../actions';
 
 function selectedReddit(state = 'reactjs', action) {
   switch (action.type) {
@@ -15,44 +16,23 @@ function selectedReddit(state = 'reactjs', action) {
   }
 }
 
-function posts(
-  state = {
-    isFetching: false,
-    items: []
-  },
-  action
-) {
-  switch (action.type) {
-    case REQUEST_POSTS:
-      return { ...state, isFetching: true };
-
-    case RECEIVE_POSTS:
-      return {
-        ...state,
-        isFetching: false,
-        items: action.payload.posts,
-        lastUpdated: action.payload.receivedAt
-      };
-    case FAILED_POSTS:
-      return {
-        ...state,
-        isFetching: false,
-        items: [],
-        error: action.payload.error
-      };
-    default:
-      return state;
-  }
-}
-
 function postsByReddit(state = {}, action) {
-  switch (action.type) {
+  const { type } = parseAsyncType(action.type);
+
+  switch (type) {
     case REQUEST_POSTS:
-    case RECEIVE_POSTS:
-    case FAILED_POSTS:
+      if (!state[action.payload.reddit]) {
+        state[action.payload.reddit] = createAsyncData([]);
+      }
       return {
         ...state,
-        [action.payload.reddit]: posts(state[action.payload.reddit], action)
+        [action.payload.reddit]: updateAsyncData(
+          state[action.payload.reddit],
+          action,
+          (data, action) => {
+            return action.payload.posts;
+          }
+        )
       };
     default:
       return state;

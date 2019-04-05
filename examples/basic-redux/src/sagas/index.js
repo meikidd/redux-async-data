@@ -1,3 +1,4 @@
+import { pending, succeeded, failed } from 'redux-async-data';
 import { take, put, call, fork, select } from 'redux-saga/effects';
 import fetch from 'isomorphic-fetch';
 import * as actions from '../actions';
@@ -21,22 +22,22 @@ export function fetchPostsApi(reddit) {
 export function* fetchPosts(reddit) {
   try {
     if (reddit !== 'empty') {
-      yield put(actions.requestPosts(reddit));
+      yield put(pending(actions.REQUEST_POSTS, { reddit }));
       const res = yield call(fetchPostsApi, reddit);
       const posts = res.data.children.map(child => child.data);
-      yield put(actions.receivePosts(reddit, posts));
+      yield put(succeeded(actions.REQUEST_POSTS, { reddit, posts }));
     } else {
-      yield put(actions.receivePosts(reddit, []));
+      yield put(succeeded(actions.REQUEST_POSTS, { reddit, posts: [] }));
     }
   } catch (e) {
-    yield put(actions.failedPosts(reddit, e));
+    yield put(failed(actions.REQUEST_POSTS, { reddit, error: e.stack }));
   }
 }
 
 export function* invalidateReddit() {
   while (true) {
-    const { reddit } = yield take(actions.INVALIDATE_REDDIT);
-    yield call(fetchPosts, reddit);
+    const { payload } = yield take(actions.INVALIDATE_REDDIT);
+    yield call(fetchPosts, payload.reddit);
   }
 }
 
