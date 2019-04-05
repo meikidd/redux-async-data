@@ -69,6 +69,10 @@ or
 yarn add redux-async-data
 ```
 
+### Demo
+
+[Demo](https://github.com/meikidd/redux-async-data/tree/master/examples/basic-redux)
+
 ### Usage
 
 To create a AsyncData object in global state, you can use `createAsyncData()` function:
