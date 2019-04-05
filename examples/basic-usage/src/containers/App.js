@@ -49,7 +49,7 @@ class App extends React.Component {
           data={posts}
           pending={<h2>Loading...</h2>}
           empty={<h2>Empty.</h2>}
-          failed={<pre>{isFailed(posts) && posts.errorMsg.error}</pre>}
+          failed={<pre>{isFailed(posts) && posts.error.error}</pre>}
           succeeded={<Posts posts={posts.data} />}
         />
       </div>

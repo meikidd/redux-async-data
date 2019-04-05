@@ -9,7 +9,7 @@ export declare enum Status {
 export declare type AsyncData<T> = {
     status: Status;
     data: T;
-    errorMsg?: string;
+    error?: string;
     hasMore?: boolean;
 };
 export declare function createAsyncData<T>(data: T, enablePaging?: boolean): AsyncData<T>;
@@ -21,7 +21,7 @@ export declare function failed(type: string, payload?: any): AnyAction;
 export declare function noMore(type: string, payload?: any): AnyAction;
 export declare function updateAsyncData(asyncData: AsyncData<any>, action: AnyAction, reducer?: Reducer): AsyncData<any> | {
     status: Status;
-    errorMsg: any;
+    error: any;
     data: any;
     hasMore?: boolean | undefined;
 };

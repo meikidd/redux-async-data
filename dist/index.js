@@ -68,7 +68,7 @@ export function noMore(type, payload) {
 export function updateAsyncData(asyncData, action, reducer) {
     var status = parseAsyncType(action.type).status;
     if (status === Status.FAILED) {
-        return __assign({}, asyncData, { status: Status.FAILED, errorMsg: action.payload });
+        return __assign({}, asyncData, { status: Status.FAILED, error: action.payload });
     }
     else if (status === Status.NO_MORE) {
         return __assign({}, asyncData, { hasMore: false });

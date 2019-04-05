@@ -23,7 +23,7 @@ export enum Status {
 export type AsyncData<T> = {
   status: Status;
   data: T;
-  errorMsg?: string;
+  error?: string;
   hasMore?: boolean; // hasMore is used for pagination
 };
 
@@ -82,7 +82,7 @@ export function updateAsyncData(
 ) {
   const { status } = parseAsyncType(action.type);
   if (status === Status.FAILED) {
-    return { ...asyncData, status: Status.FAILED, errorMsg: action.payload };
+    return { ...asyncData, status: Status.FAILED, error: action.payload };
   } else if (status === Status.NO_MORE) {
     return { ...asyncData, hasMore: false };
   } else if (status === Status.PENDING) {
