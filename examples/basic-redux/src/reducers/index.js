@@ -6,10 +6,10 @@ import {
   FAILED_POSTS
 } from '../actions';
 
-function selectedReddit(state = 'notfound', action) {
+function selectedReddit(state = 'reactjs', action) {
   switch (action.type) {
     case SELECT_REDDIT:
-      return action.reddit;
+      return action.payload.reddit;
     default:
       return state;
   }
@@ -30,15 +30,15 @@ function posts(
       return {
         ...state,
         isFetching: false,
-        items: action.posts,
-        lastUpdated: action.receivedAt
+        items: action.payload.posts,
+        lastUpdated: action.payload.receivedAt
       };
     case FAILED_POSTS:
       return {
         ...state,
         isFetching: false,
         items: [],
-        error: action.error
+        error: action.payload.error
       };
     default:
       return state;
@@ -52,7 +52,7 @@ function postsByReddit(state = {}, action) {
     case FAILED_POSTS:
       return {
         ...state,
-        [action.reddit]: posts(state[action.reddit], action)
+        [action.payload.reddit]: posts(state[action.payload.reddit], action)
       };
     default:
       return state;

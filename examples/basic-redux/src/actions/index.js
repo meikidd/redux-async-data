@@ -7,37 +7,47 @@ export const INVALIDATE_REDDIT = 'INVALIDATE_REDDIT';
 export function selectReddit(reddit) {
   return {
     type: SELECT_REDDIT,
-    reddit
+    payload: {
+      reddit
+    }
   };
 }
 
 export function invalidateReddit(reddit) {
   return {
     type: INVALIDATE_REDDIT,
-    reddit
+    payload: {
+      reddit
+    }
   };
 }
 
 export function requestPosts(reddit) {
   return {
     type: REQUEST_POSTS,
-    reddit
+    payload: {
+      reddit
+    }
   };
 }
 
 export function receivePosts(reddit, posts) {
   return {
     type: RECEIVE_POSTS,
-    reddit,
-    posts,
-    receivedAt: new Date().setMilliseconds(0)
+    payload: {
+      reddit,
+      posts,
+      receivedAt: new Date().setMilliseconds(0)
+    }
   };
 }
 
 export function failedPosts(reddit, error) {
   return {
     type: FAILED_POSTS,
-    reddit,
-    error
+    payload: {
+      reddit,
+      error
+    }
   };
 }
