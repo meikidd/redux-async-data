@@ -55,6 +55,6 @@
       content = empty;
     }
 
-    return <React.Fragment>{content}</React.Fragment>;
+    return /*#__PURE__*/React.createElement(React.Fragment, null, content);
   }
 });
