@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc --build tsconfig.json",
+    "build": "babel lib --out-dir dist --extensions '.ts,.tsx'",
     "declaration": "tsc -d"
   },
   "repository": {
@@ -27,6 +27,10 @@
     "redux": "^4.0.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-modules-umd": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.7",
     "@types/react": "^16.8.10",
     "typescript": "^3.2.2"
   }
