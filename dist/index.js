@@ -1,17 +1,19 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "./AsyncView"], factory);
+    define(["exports", "@babel/runtime/helpers/defineProperty", "./AsyncView"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("./AsyncView"));
+    factory(exports, require("@babel/runtime/helpers/defineProperty"), require("./AsyncView"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.AsyncView);
+    factory(mod.exports, global.defineProperty, global.AsyncView);
     global.index = mod.exports;
   }
-})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _AsyncView) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _defineProperty2, _AsyncView) {
   "use strict";
+
+  var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
   Object.defineProperty(_exports, "__esModule", {
     value: true
@@ -48,17 +50,22 @@
   _exports.isSucceeded = isSucceeded;
   _exports.isFinished = isFinished;
   _exports.Status = void 0;
+  _defineProperty2 = _interopRequireDefault(_defineProperty2);
   Object.keys(_AsyncView).forEach(function (key) {
     if (key === "default" || key === "__esModule") return;
     if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
     if (key in _exports && _exports[key] === _AsyncView[key]) return;
     Object.defineProperty(_exports, key, {
       enumerable: true,
-      get: function () {
+      get: function get() {
         return _AsyncView[key];
       }
     });
   });
+
+  function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+  function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
   /*
   
@@ -71,7 +78,7 @@
   SUCCEEDED   FAILED
   
   */
-  let Status;
+  var Status;
   _exports.Status = Status;
 
   (function (Status) {
@@ -97,7 +104,7 @@
   function createAsyncAction(type, status, payload) {
     return {
       type: createAsyncType(type, status),
-      payload,
+      payload: payload,
       isAsync: true
     };
   }
@@ -105,7 +112,7 @@
   function pending(type, payload) {
     return {
       type: createAsyncType(type, Status.PENDING),
-      payload,
+      payload: payload,
       isAsync: true
     };
   }
@@ -113,7 +120,7 @@
   function succeeded(type, payload) {
     return {
       type: createAsyncType(type, Status.SUCCEEDED),
-      payload,
+      payload: payload,
       isAsync: true
     };
   }
@@ -121,7 +128,7 @@
   function failed(type, payload) {
     return {
       type: createAsyncType(type, Status.FAILED),
-      payload,
+      payload: payload,
       isAsync: true
     };
   }
@@ -129,34 +136,33 @@
   function noMore(type, payload) {
     return {
       type: createAsyncType(type, Status.NO_MORE),
-      payload,
+      payload: payload,
       isAsync: true
     };
   }
 
   function updateAsyncData(asyncData, action, reducer) {
-    const {
-      status
-    } = parseAsyncType(action.type);
+    var _parseAsyncType = parseAsyncType(action.type),
+        status = _parseAsyncType.status;
 
     if (status === Status.FAILED) {
-      return { ...asyncData,
+      return _objectSpread(_objectSpread({}, asyncData), {}, {
         status: Status.FAILED,
         error: action.payload
-      };
+      });
     } else if (status === Status.NO_MORE) {
-      return { ...asyncData,
+      return _objectSpread(_objectSpread({}, asyncData), {}, {
         hasMore: false
-      };
+      });
     } else if (status === Status.PENDING) {
-      return { ...asyncData,
+      return _objectSpread(_objectSpread({}, asyncData), {}, {
         status: Status.PENDING
-      };
+      });
     } else if (status === Status.SUCCEEDED) {
-      return { ...asyncData,
+      return _objectSpread(_objectSpread({}, asyncData), {}, {
         status: Status.SUCCEEDED,
         data: !!reducer ? reducer(asyncData.data, action) : action.payload
-      };
+      });
     } else {
       return asyncData;
     }
@@ -165,10 +171,10 @@
 
 
   function parseAsyncType(type) {
-    const matches = type.match(/^(\S+)\.(\w+$)/);
+    var matches = type.match(/^(\S+)\.(\w+$)/);
 
     if (matches && matches.length >= 3) {
-      let status = null;
+      var status = null;
 
       if (Status.FAILED === matches[2]) {
         status = Status.FAILED;
@@ -184,11 +190,11 @@
 
       return {
         type: matches[1],
-        status
+        status: status
       };
     } else {
       return {
-        type,
+        type: type,
         status: null
       };
     }
